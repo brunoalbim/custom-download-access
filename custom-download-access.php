@@ -2,7 +2,7 @@
 /*
 Plugin Name: Download Restrito
 Description: Plugin para gerenciar acesso a downloads com token.
-Version: 0.1.1
+Version: 0.1.2
 Author: Bruno A.
 */
 
@@ -89,7 +89,7 @@ add_shortcode('check_acesso_liberado', 'check_acesso_liberado_and_validate_token
 // Função para adicionar JavaScript apenas em post types de "downloads"
 function enqueue_custom_script() {
     $slug = get_option('cda_slug', 'downloads');
-    $base_url = get_option('cda_base_url', get_site_url());
+    $base_url = get_site_url();
     $slugPost = get_post_field('post_name', get_post());
 
     if (is_singular($slug)) {
@@ -126,7 +126,6 @@ add_action('admin_menu', 'cda_add_admin_menu');
 
 // Função para registrar as configurações
 function cda_settings_init() {
-    register_setting('cda_settings', 'cda_base_url');
     register_setting('cda_settings', 'cda_slug');
 
     add_settings_section(
@@ -134,14 +133,6 @@ function cda_settings_init() {
         __('Configurações do Plugin', 'cda'),
         null,
         'cda_settings'
-    );
-
-    add_settings_field(
-        'cda_base_url',
-        __('URL Base', 'cda'),
-        'cda_base_url_render',
-        'cda_settings',
-        'cda_settings_section'
     );
 
     add_settings_field(
@@ -154,13 +145,6 @@ function cda_settings_init() {
 }
 add_action('admin_init', 'cda_settings_init');
 
-// Renderizar campo URL Base
-function cda_base_url_render() {
-    $base_url = get_option('cda_base_url', get_site_url());
-    ?>
-    <input type='text' name='cda_base_url' value='<?php echo esc_attr($base_url); ?>' size='50'>
-    <?php
-}
 
 // Renderizar campo Slug
 function cda_slug_render() {
