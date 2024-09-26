@@ -2,7 +2,7 @@
 /*
 Plugin Name: WP Download Restrito
 Description: Plugin para gerenciar acesso a downloads com token.
-Version: 0.1.2
+Version: 0.1.3
 Author: Bruno A.
 */
 
