@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Download Restrito
+Plugin Name: WP Download Restrito
 Description: Plugin para gerenciar acesso a downloads com token.
 Version: 0.1.2
 Author: Bruno A.
