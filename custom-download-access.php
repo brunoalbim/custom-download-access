@@ -2,7 +2,7 @@
 /*
 Plugin Name: WP Download Restrito
 Description: Plugin para gerenciar acesso a downloads com token.
-Version: 0.1.3
+Version: 0.2.0
 Author: Bruno A.
 */
 
@@ -91,6 +91,9 @@ function enqueue_custom_script() {
     $slug = get_option('cda_slug', 'downloads');
     $base_url = get_site_url();
     $slugPost = get_post_field('post_name', get_post());
+    $current_language = get_locale();
+	$default_language = get_option('WPLANG');
+	$urlLang = $current_language !== $default_language ? explode('_', $current_language)[0].'/' : '';
 
     if (is_singular($slug)) {
         ?>
@@ -105,7 +108,7 @@ function enqueue_custom_script() {
                     if (emailField) {
                         var email = emailField.value;
                         var token = btoa(email + '##' + Math.floor(Date.now() / 1000));
-                        var redirectUrl = '<?php echo esc_js($base_url.'/'.$slug.'/'.$slugPost); ?>/acesso-liberado/?token=' + token;
+                        var redirectUrl = '<?php echo esc_js($base_url.'/'.$urlLang.$slug.'/'.$slugPost); ?>/acesso-liberado/?token=' + token;
 
                         window.location.href = redirectUrl;
                     }
